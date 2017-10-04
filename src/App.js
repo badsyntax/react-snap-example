@@ -3,23 +3,42 @@ import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter, Link, Route } from "react-router-dom";
 
-const About = () =>
+const About = () => (
   <div>
     <h2>About</h2>
     <p className="App-intro">
       This is the about page, go to the <Link to="/">home page</Link>?
     </p>
-  </div>;
+  </div>
+);
 
-const Home = () =>
+const Home = () => (
   <div>
     <h2>Home</h2>
     <p className="App-intro">
       This is the home page, go to the <Link to="/about/">about page</Link>?
     </p>
-  </div>;
+  </div>
+);
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      items: []
+    };
+  }
+
+  async componentDidMount() {
+    fetch("/data.json")
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          items: data.items
+        });
+      });
+  }
+
   render() {
     return (
       <BrowserRouter>
@@ -30,6 +49,7 @@ class App extends Component {
           </header>
           <Route path="/" exact component={Home} />
           <Route path="/about/" component={About} />
+          {this.state.items.map(item => <div key={item}>{item}</div>)}
         </div>
       </BrowserRouter>
     );

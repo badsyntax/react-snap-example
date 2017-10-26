@@ -10,10 +10,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && react-snap",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "snap": "npm run build && node ./node_modules/react-snap"
+    "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "react-snap": "^0.5.4"
   },
   "reactSnap": {
     "minifyOptions": {

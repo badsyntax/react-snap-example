@@ -4,6 +4,8 @@ import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 
+const basename = '/react-snap-example';
+
 const Nav = () => (
   <nav className="Nav">
     <Link to="/">Home</Link>
@@ -39,7 +41,7 @@ class Async extends Component {
   }
 
   async componentDidMount() {
-    window.fetch('/data.json')
+    fetch(`${process.env.NODE_ENV === 'production' ? basename : ''}/data.json`)
       .then(res => res.json())
       .then((data) => {
         this.setState({
@@ -66,7 +68,7 @@ const NoMatch = () => (
 );
 
 const App = () => (
-  <BrowserRouter>
+  <BrowserRouter basename={basename}>
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />

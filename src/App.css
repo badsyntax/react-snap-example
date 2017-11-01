@@ -22,6 +22,11 @@
   font-size: large;
 }
 
+.Nav a {
+  padding: .5rem;
+  display: inline-block;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

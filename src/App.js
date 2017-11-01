@@ -1,7 +1,16 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import { BrowserRouter, Link, Route } from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+
+import logo from './logo.svg';
+import './App.css';
+
+const Nav = () => (
+  <nav className="Nav">
+    <Link to="/">Home</Link>
+    <Link to="/about/">About</Link>
+    <Link to="/async/">Async</Link>
+  </nav>
+);
 
 const About = () => (
   <div>
@@ -21,39 +30,57 @@ const Home = () => (
   </div>
 );
 
-class App extends Component {
+class Async extends Component {
   constructor() {
     super();
     this.state = {
-      items: []
+      items: [],
     };
   }
 
   async componentDidMount() {
-    fetch("/data.json")
+    window.fetch('/data.json')
       .then(res => res.json())
-      .then(data => {
+      .then((data) => {
         this.setState({
-          items: data.items
+          items: data.items,
         });
       });
   }
 
   render() {
     return (
-      <BrowserRouter>
-        <div className="App">
-          <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">Welcome to React</h1>
-          </header>
-          <Route path="/" exact component={Home} />
-          <Route path="/about/" component={About} />
-          {this.state.items.map(item => <div key={item}>{item}</div>)}
-        </div>
-      </BrowserRouter>
+      <div>
+        <h2>Async example</h2>
+        {this.state.items.map(item => <div key={item}>{item}</div>)}
+      </div>
     );
   }
 }
+
+const NoMatch = () => (
+  <div>
+    <h2>404 Not Found</h2>
+    <p className="App-intro">The page you were looking for does not exist.</p>
+  </div>
+);
+
+const App = () => (
+  <BrowserRouter>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <h1 className="App-title">Welcome to React</h1>
+      </header>
+      <Nav />
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/about/" component={About} />
+        <Route path="/async/" component={Async} />
+        <Route component={NoMatch} />
+      </Switch>
+    </div>
+  </BrowserRouter>
+);
 
 export default App;

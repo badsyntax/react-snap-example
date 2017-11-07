@@ -9,15 +9,6 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.14"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build && react-snap",
-    "postbuild": "mv ./build/react-snap-example/* ./build/",
-    "test": "react-scripts test --env=jsdom",
-    "lint": "eslint .",
-    "eject": "react-scripts eject",
-    "deploy": "gh-pages -d build"
-  },
   "devDependencies": {
     "eslint": "4.10.0",
     "eslint-config-airbnb": "16.1.0",
@@ -25,13 +16,14 @@
     "eslint-plugin-jsx-a11y": "6.0.2",
     "eslint-plugin-react": "7.4.0",
     "gh-pages": "1.0.0",
-    "react-snap": "0.5.4"
+    "react-snap": "0.8.1"
   },
-  "reactSnap": {
-    "virtualPathPrefix": "/react-snap-example",
-    "include": [
-      "/react-snap-example/",
-      "/react-snap-example/404"
-    ]
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build && react-snap",
+    "test": "react-scripts test --env=jsdom",
+    "lint": "eslint .",
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build"
   }
 }

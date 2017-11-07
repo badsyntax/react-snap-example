@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
+import { parse } from 'url';
+import { homepage } from '../package.json';
 
 import logo from './logo.svg';
 import './App.css';
 
-const basename = '/react-snap-example';
+const basename = parse(homepage).pathname;
 
 const Nav = () => (
   <nav className="Nav">
     <Link to="/">Home</Link>
     <Link to="/about/">About</Link>
-    <Link to="/async/">Async</Link>
   </nav>
 );
 
@@ -32,38 +33,12 @@ const Home = () => (
   </div>
 );
 
-class Async extends Component {
-  constructor() {
-    super();
-    this.state = {
-      items: [],
-    };
-  }
-
-  async componentDidMount() {
-    fetch(`${process.env.NODE_ENV === 'production' ? basename : ''}/data.json`)
-      .then(res => res.json())
-      .then((data) => {
-        this.setState({
-          items: data.items,
-        });
-      });
-  }
-
-  render() {
-    return (
-      <div>
-        <h2>Async example</h2>
-        {this.state.items.map(item => <div key={item}>{item}</div>)}
-      </div>
-    );
-  }
-}
-
 const NoMatch = () => (
   <div>
     <h2>404 Not Found</h2>
-    <p className="App-intro">The page you were looking for does not exist.</p>
+    <p className="App-intro">
+      The page you were looking for does not exist.
+    </p>
   </div>
 );
 
@@ -78,7 +53,6 @@ const App = () => (
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/about/" component={About} />
-        <Route path="/async/" component={Async} />
         <Route component={NoMatch} />
       </Switch>
     </div>
